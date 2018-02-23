@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-maven笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/09/maven笔记/" class="article-date">
+  <time datetime="2017-03-09T13:46:26.000Z" itemprop="datePublished">2017-03-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/09/maven笔记/">maven笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>@(笔记)</p>
+<h5 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h5><ul>
+<li><em>POM</em>（Project Object Model）： <strong>用通俗点的话说就是对要构建的项目进行建模，将要构建的项目看成是一个对象（Object），后文就使用PO来指代这个对象。</strong>既然是一个对象，那么PO有哪些属性呢？在maven中一个项目都是用一个唯一的坐标（coordinate）来表示，<strong>坐标由groupId, artifactId, version, classifier, type这五部分组成</strong>。这样来说PO应该也要具备坐标属性。另外一方面，一个项目肯定不是孤立存在的，可能依赖于其他的一些项目，那么也就是说PO应该具备dependencies这个属性，用来表示其所依赖的外部项目。<strong>pom.xml就是PO对象的XML描述：</strong>PO对象也有其父对象，用parent属性来表示，并且PO对象会继承其父对象的所有属性。另外一方面，一个项目可能根据不同职责分为多个模块（module），所有模块其实也就是一个单独的项目，只不过这些项目会使用其父对象的一些属性来进行构建。</li>
+<li><em>Lifecycle</em>：生命周期；Lifecycle分为多个阶段，每个阶段叫做phase。（参考后面phase附件）<strong>phase的作用有点类似于Java语言中的接口，每一个phase就是一个契约，但并没有定义具体的动作；</strong>具体的动作就是由goal来定义，一个goal在maven中就是一个Mojo（Maven old java object）。<strong>Mojo抽象类中定义了一个execute()方法，一个goal的具体动作就是在execute()方法中实现</strong>。实现的Mojo类应该放在哪里呢？答案是maven plugin里，所谓的plugin其实也就是一个maven项目，只不过这个项目会引用maven的一些API，plugin项目也具备maven坐标。</li>
+</ul>
+<h5 id="参考附件"><a href="#参考附件" class="headerlink" title="参考附件"></a>参考附件</h5><ul>
+<li><strong>phase：</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">validate： 用于验证项目的有效性和其项目所需要的内容是否具备</span><br><span class="line">initialize：初始化操作，比如创建一些构建所需要的目录等。</span><br><span class="line">generate-sources：用于生成一些源代码，这些源代码在compile phase中需要使用到</span><br><span class="line">process-sources：对源代码进行一些操作，例如过滤一些源代码</span><br><span class="line">generate-resources：生成资源文件（这些文件将被包含在最后的输入文件中）</span><br><span class="line">process-resources：对资源文件进行处理</span><br><span class="line">compile：对源代码进行编译</span><br><span class="line">process-classes：对编译生成的文件进行处理</span><br><span class="line">generate-test-sources：生成测试用的源代码</span><br><span class="line">process-test-sources：对生成的测试源代码进行处理</span><br><span class="line">generate-test-resources：生成测试用的资源文件</span><br><span class="line">process-test-resources：对测试用的资源文件进行处理</span><br><span class="line">test-compile：对测试用的源代码进行编译</span><br><span class="line">process-test-classes：对测试源代码编译后的文件进行处理</span><br><span class="line">test：进行单元测试</span><br><span class="line">prepare-package：打包前置操作</span><br><span class="line">package：打包</span><br><span class="line">pre-integration-test：集成测试前置操作     </span><br><span class="line">integration-test：集成测试</span><br><span class="line">post-integration-test：集成测试后置操作</span><br><span class="line">install：将打包产物安装到本地maven仓库</span><br><span class="line">deploy：将打包产物安装到远程仓库</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="参考网址"><a href="#参考网址" class="headerlink" title="参考网址"></a>参考网址</h5><ul>
+<li><a href="http://www.jianshu.com/p/0fb5e3fb704d#" target="_blank" rel="noopener">maven内部运行原理解析</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/09/maven笔记/" data-id="cje000iy50001ntcs8betqvpw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-书籍列表" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/01/07/书籍列表/" class="article-date">
+  <time datetime="2017-01-07T13:46:16.000Z" itemprop="datePublished">2017-01-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/07/书籍列表/">书籍列表</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>@(笔记)</p>
+<p>归纳正在阅读的书籍，方便有一个安排。</p>
+<h5 id="1-专业方面"><a href="#1-专业方面" class="headerlink" title="1.专业方面"></a>1.专业方面</h5><ul>
+<li><strong>《鸟哥的linux私房菜》</strong>    //  快速过了一遍   </li>
+<li><strong>《数据结构（C语言版）》</strong>  //     大学课本，还没重读</li>
+<li><strong>《大话设计模式》</strong>     //  基本过来一遍，主要还是要实践，不然没用。</li>
+<li><strong>《thinking in java》</strong>  //   在读</li>
+<li><strong>《Effective java》</strong>  //   在读  </li>
+<li><strong>《java8 函数式编程》</strong>  // 过来一遍，现在也在用里面的语法</li>
+<li><strong>《Spring in action》</strong>  //  在读</li>
+<li><strong>《Spring boot 实战》</strong>   //  在读，正在结合微服务搭项目架构</li>
+<li><strong>《javaScript 高级程序设计》</strong>  //  完整阅读了一遍，值得再度</li>
+<li><strong>《html5与css3权威指南》</strong>   //  看来一半，公司用不到，自己写demo</li>
+<li><strong>《vue.js权威指南》</strong>   // 完整阅读，搭建了一套技术框架</li>
+<li><strong>《深入浅出node.js》</strong>  //  看了一点，讲的比较基本，会预计去看完</li>
+<li><strong>《代码整洁之道》</strong>   //  在读</li>
+<li><strong>《重构》</strong>   //在读</li>
+<li><strong>《大型网站技术架构》</strong>   //在读</li>
+</ul>
+<h5 id="2-非专业方面"><a href="#2-非专业方面" class="headerlink" title="2. 非专业方面"></a>2. 非专业方面</h5><ul>
+<li>《如何阅读一本书》</li>
+<li>《黑客与画家》</li>
+<li>《从0到1》</li>
+<li>《当我跑步时 我谈些什么》</li>
+<li>《月亮与六便士》</li>
+<li>《设计中的设计》</li>
+<li>《人性的弱点》</li>
+<li>《关键性对话》</li>
+<li>《自控力》</li>
+<li>《素描的诀窍》</li>
+<li>《钢笔行书字帖》</li>
+</ul>
+<h5 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h5><ul>
+<li>（planing-907）纸质书的阅读会带来一个知识体系的整体认知，而不像网络blog，如果是基础的，思想上的应该多阅读纸质书才是，当然不能放弃网络上的实时更新的技术。下一百个planing应该回去持续把在读书籍都过一遍。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/01/07/书籍列表/" data-id="cje000iyh0004ntcst6wlc9fu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2016" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/31/2016/" class="article-date">
+  <time datetime="2016-12-31T13:46:04.000Z" itemprop="datePublished">2016-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/31/2016/">2016</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>@(日常笔记)</p>
+<ul>
+<li><p>这一年最后一天，2016，给我人生带来改变的一年，深深地爱着，幸运，感悟，努力，阅读，改变，方向。最重要的是明白了很多事情吧！ </p>
+</li>
+<li><p>今年听的最多的歌莫过于《一生所爱》了，也对至尊宝的那句经典名言有了自己的感悟，曾经有一段真挚的感情放在我面前，我没有好好珍惜，直到失去她了才感到后悔莫及，如果上天能够给我一次再来过的机会，我会对那个女孩说三个字，我爱你，如果非要给这段感情加一个期限，我愿意是一万年。以前看到这句话都以为是开玩笑，直到真正爱过一个人，然后梦里面都是她的时候，才发现这句话是这个意思。网上有人说爱一个人从失去她的时候开始，有那么一点道理，爱着的时候，不以为然，直到失去的时候才幡然大悟。并不是不珍惜，也知道要珍惜，回头去看，你恨不得揪着那个少年的耳朵，告诉他，你这样做不对，你正在犯错，无奈那个少年现在才明白。并不是不珍惜，这也不是说出来的借口，只是当时还不知道什么是珍惜，只会跟着网络上说要珍惜，其实你并不知道。 </p>
+</li>
+<li><p>失恋于一个你喜欢的人，你可能会颓废，消磨时间。但是失恋于一个你爱的人，你不会，你会戒掉烟，收拾好自己，让自己变得更好，让自己变得更加充实，不是赌气说一定要变得比你想想的还要好，不是为了填补自己无聊的时间，不是为了有一天让别人在你面前提起，只是因为我爱你，所以不管你是否还在我都会变得更好。这是一种我还不能用语言来描述的感觉，到最后，可能就会到了那句话上面：你的气质体现在，你爱过的人，你看过的书和你走过的路上面。 </p>
+</li>
+<li><p>我知道那个少年搞砸了，他不应该摔门而出，不应该说出一些伤人的话来，很多的不应该，但是我已经不能把现在明白的道理告诉他了，有些失望都是积累起来的，失望多了谁都会离开，  这就是不知道的珍惜吧。《clean code》中引用的句子：“神在细节中”，这不止是说在code中吧，生活中也应该知道这个道理。《教父》中说：“妇女和小孩可以大意，但是男人可不能大意”，你时常都应该去准备，你应该这样，这是你的责任。 </p>
+</li>
+<li><p>还有的就是阅读了，十月份开始有了大量的阅读。coding工作的失败，看到的确是不一样的技术；到现在这家公司，养成了阅读的习惯，这也整合自己的喜好，购买了二三十本书，专业的，非专业的。当然还有大量没有阅读完，至少保证每天都有阅读时间，也慢慢的扎实了基础，进一步完善了自己的学习方式。在大年前这些时间里应该会出一些技术上的blog，总结自己这几个月的所学。值得高兴的一件事，公司的架构师的评估自己的技术是可以拿到5位数的工资了，虽然他已经去阿里了，那是挺感谢他的，教了我很多东西。不过我的目标不是他给我评估的这个数，还差小几倍吧，至少对我来说是前进的一步吧，planing-的计划任然在继续，后面的数字也在一天天减少，技术栈的架构图还没完成，生活的架构也需要好好思考，保持一颗赤子之心，虔诚和细节。 </p>
+</li>
+<li><p>接下来会有一次旅行吧，旅行计划还在完善，希望有一次不错的旅行。 </p>
+</li>
+<li><p>最后，一生所爱，2017，走的踏实。</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/12/31/2016/" data-id="cje000ixy0000ntcsk95whs9k" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日志/">日志</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-一个月" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/29/一个月/" class="article-date">
+  <time datetime="2016-10-29T13:45:44.000Z" itemprop="datePublished">2016-10-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/29/一个月/">一个月</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>@(日常笔记)</p>
+<ul>
+<li>完完整整工作了一个月，每天都是加班，开始进入了平缓期，长时间的加班会及时的带来疲惫感，显然合理的设计势在必行，作息时间，做事方式 ，沟通方式和学习方式的调整，有必要去好好做细微的合理化。</li>
+</ul>
+<hr>
+<ul>
+<li>面对每天的工作时间和学习时间的消耗，同时考虑到人本身的精力问题，需要一个合适自己的时间规律，比如说24点之前睡觉，6点起来，7点半出门，中午休息半小时，下午放松半小时，晚餐休息，21点半等最后一班公交，23点半准时洗漱，24点休息。</li>
+</ul>
+<hr>
+<ul>
+<li>做事是一个系统的工程，需要有计划，设计，安排，实现，测试，打磨，收尾，总结。是不在大小，需要有一个高效的方式，就必须按照一些规则来，合理的，合适的规则。这些规则慢慢的形成，然后改变自己的习惯和思想。同时，一切你在做的事情，都需要好的运维，好的运维，保证你建造的东西正在发挥这作用，而不是将建造花费的时间，在日后的时间里慢慢地浪费掉。</li>
+</ul>
+<hr>
+<ul>
+<li>尽量确保在有效的沟通，好像现阶段，独处是最好的状态，同时工作上也的保持有效的沟通，这样可以有更多的时间用在学习上，和<em>悟</em>上面。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/10/29/一个月/" data-id="cje000iyd0003ntcsx944pgzt" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日志/">日志</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-写下这个雨天的感受" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/19/写下这个雨天的感受/" class="article-date">
+  <time datetime="2016-10-19T13:43:44.000Z" itemprop="datePublished">2016-10-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/19/写下这个雨天的感受/">写下这个雨天的感受</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>@(日常笔记)</p>
+<p><em>第一天这么晚回来，一直打不到出租车的感受，和出租车司机聊这个城市，以及自己的选择。</em></p>
+<p>&#8194;&#8194;如果coding算是我这接下来的路程，conding让我看到了不一样的编程，也为我接下来这个阶段的路程殿下了方向，也为接下来的路程的疲惫写下了肯定句式，最后劫匪留下的那句十年一剑的话，导出了这条路上的侠客浪子情怀。</p>
+<p>&#8194;&#8194; 这个雨天，这个夜晚，人们站在街边望着路边的出租车，看着手机屏上的打车应用，等着载自己回家的那辆出租车，我才感觉到我已在这条路上了，一个人的夜晚，一支烟的陪伴，一条街边的等待。有无数的像自己一样在这个城市里，追寻自己的生活，那一个自己想要的样子，哪一个深爱的人，哪一个渴望的远方，哪一个家。每一个在路上的人都是值得，尊重的，学习的，因为他们在自己的道路上，付出了一个又一个的夜晚，一遍又一遍的思考。或许这就是奋斗，这就是努力，这就是熬出这几年，因为你还什么都没有，只有在疲惫的时候，深深地叹下一口气，然后又继续去做出自己想要的样子，就像彭哥，于宁哥，相信他们也是在自己的路上吧。这些都不必多说，都是在一步一步走着，走的那么踏实，走的那么深沉。</p>
+<p>&#8194;&#8194;这是一个人人都想来的城市，这是一个人人都想离开的城市，人们工作在这个城市的深夜，奔波在早晚高峰，挤着一辆接着一辆的公交地铁，最后还是会离开，在这里留下了最好的年纪，在这里走着属于自己的哪一条路，三年五年，亦或十年二十年，在这些夜晚你思考了什么，思念了谁，梦到了那一片叶落花开，亦是留下了梦中的泪痕。夜晚下，灯光闪烁，夜晚下，雨在滴答地下，夜晚下那人是否也撑着一把伞。<br>&#8194;&#8194;岁月静好，路在脚下，迈出一步，便是远方。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/10/19/写下这个雨天的感受/" data-id="cje000iyp0008ntcsdqbzx7la" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日志/">日志</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-前进的道路上带上自己" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/21/前进的道路上带上自己/" class="article-date">
+  <time datetime="2016-09-21T13:37:01.000Z" itemprop="datePublished">2016-09-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/21/前进的道路上带上自己/">前进的道路上带上自己</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>@(日常笔记)</p>
+<p><em>总结非常迷茫的这一个月，为什么行走的痛苦</em>  </p>
+<hr>
+<h5 id="1-有差距，并不代表自己一无是处"><a href="#1-有差距，并不代表自己一无是处" class="headerlink" title="1.有差距，并不代表自己一无是处"></a>1.有差距，并不代表自己一无是处</h5><p>正是有差距才会，选择去远方。正是有差距才会，选择历练自己。差距总是存在的，有了这份差距，在连接自己目标，才有了可以行走的路，在这条道路的起点上，你会迷茫，你会看不清方向，你会陷入黑暗，就像午夜三点入睡早上七点起来的自己，一路爬坑，还是有哪些没学懂的技术语言，一脸懵逼。面对一些无能为力，面对一些错误，面对一些不得不做，面对自己的目标，面对自己的情绪，陷入大脑的一片混乱。这些都是会有的，越在这些或哪些混乱堆在一起的时候，更应该停下来想想自己本身，在没有这些的时候，没有差距的时候，没有混乱的时候，每个人都并不是一无是处的，都会自己的起点，有自己还是擅长的地方，不要被暂时存在的一些差距和混乱让自己被自己所打败！</p>
+<blockquote>
+<p>“一个人并非生来就是被打败的，你尽可以消灭他，可就是打不败他!”</p>
+</blockquote>
+<hr>
+<h5 id="2-看看现在"><a href="#2-看看现在" class="headerlink" title="2.看看现在"></a>2.看看现在</h5><p>面对一下要看一列的这个或那个的技术书籍和文档，一头地扎进去，左蹦右窜，把自己搞得稀里糊涂，每一个都看了一点，每一个都会写一点，实际却用新技术写了不任何东西来。原来会的技术还不足以解决任何问题，现在要学的新东西有在不停的折腾，只能把自己搞跨了，旧的不行，新的不会，付出时间，收获却微乎其微，试用期都难过，并不是没有去花时间搞，也并不完全是学习方法不对，一开始进来就把自己搞细碎了，该有的学习方法打乱，固有处理事情的方式乱套，一切都是从零开始，这样来说，学习的成本太高。就像一个太大的苹果，大到手掌都拿不住的，趴在上面，这边摸一下，那边的又想摸一下，最终还是，吃不到苹果。</p>
+<hr>
+<h5 id="3-回头看看"><a href="#3-回头看看" class="headerlink" title="3.回头看看"></a>3.回头看看</h5><p>回头看看，其实并没有那么糟糕，走进了一个看似牛逼的地方，看到了一些新东西，听了一些名言名句，就这样吧。这些都不是自己的，回头看看自己的。吃饭的技术还是有吧，不至于差的太远吧，写个啥XXX还是能写吧，非得看不见这些，去做一些从零开始的这不是为难吗，何不看看原来的代码，在上面加点，再加点，这不就顺畅了。</p>
+<hr>
+<h5 id="4-踏在自己的身上"><a href="#4-踏在自己的身上" class="headerlink" title="4.踏在自己的身上"></a>4.踏在自己的身上</h5><p>每一步踏自己身上，才会感觉踏实。前脚踏空了没事，这叫进步；如果同时后脚也踏空了，这叫跳崖；把自己捋顺了，一切才会来得快。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/09/21/前进的道路上带上自己/" data-id="cje000iym0005ntcsoc13mzmv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日志/">日志</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/日志/" style="font-size: 20px;">日志</a> <a href="/tags/笔记/" style="font-size: 10px;">笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/03/09/maven笔记/">maven笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/07/书籍列表/">书籍列表</a>
+          </li>
+        
+          <li>
+            <a href="/2016/12/31/2016/">2016</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/29/一个月/">一个月</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/19/写下这个雨天的感受/">写下这个雨天的感受</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
