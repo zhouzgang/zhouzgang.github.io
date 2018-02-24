@@ -15,7 +15,7 @@
   
     
   
-      <title>前进的道路上带上自己 - Hexo</title>
+      <title>跨域问题总结 - Hexo</title>
   
   
   <meta name="description" content="">
@@ -189,14 +189,14 @@
 
 
 
-<article class="article" id="/2016/09/21/前进的道路上带上自己/" data-name='前进的道路上带上自己' data-version="">
+<article class="article" id="/2018/02/24/跨域问题总结/" data-name='跨域问题总结' data-version="">
 
     <!-- Title -->
     <div class='article-header'>
          
          <h1 class='article-title'>
-            <a href="/2016/09/21/前进的道路上带上自己/">
-                前进的道路上带上自己
+            <a href="/2018/02/24/跨域问题总结/">
+                跨域问题总结
             </a>
         </h1>
         <!-- TODO: support nested categories,display them nicely -->
@@ -206,7 +206,7 @@
     <!-- Date and Author -->
     <div class='article-meta'>
     <ul>
-            <li><i class='fa fa-calendar'></i> 2016-09-21</li>
+            <li><i class='fa fa-calendar'></i> 2018-02-24</li>
             
             <li><i class="fa fa-user"></i> John Doe</li>
             
@@ -224,7 +224,7 @@
 <div class="tags">
 	
 		
-			<label class='tag-1'><a href="/tags/日志/">日志</a></label>
+			<label class='tag-1'><a href="/tags/笔记/">笔记</a></label>
 		
 	
 	</div>
@@ -283,8 +283,20 @@
   <h3>Quick Read</h3>
 </div>
 <div class="card-text">
-  <p id='text-post-summary'>@(日常笔记)
-总结非常迷茫的这一个月，为什么行走的痛苦 ...</p>
+  <p id='text-post-summary'>@(笔记)[blog]
+1. 跨域分类
+分类
+简单请求
+非简单请求 （两者区分下面CORS参考网站讲的更详细） 
+
+
+使用中遇到的问题
+跨域请求，需要发送cookie时，必须同时在后台设置Access-Control-Allow-Credentials: true，前台设置 xhr.withCredentials = true;。同时发送Cookie，Access-Control-Allow-Origin就不能设为星号，必须指定明确的、与请求网页一致的域名。
+实际使用时只设置了前台发送，导致发送第一次Options请求时报错，原因就是后台不满足条件
+
+
+
+2....</p>
 </div>
         </div> -->
     </div>
@@ -307,19 +319,35 @@
 
     </div>
     <div class='article-content'>
-    <p>@(日常笔记)</p>
-<p><em>总结非常迷茫的这一个月，为什么行走的痛苦</em>  </p>
-<hr>
-<h5 id="1-有差距，并不代表自己一无是处"><a href="#1-有差距，并不代表自己一无是处" class="headerlink" title="1.有差距，并不代表自己一无是处"></a>1.有差距，并不代表自己一无是处</h5><p>正是有差距才会，选择去远方。正是有差距才会，选择历练自己。差距总是存在的，有了这份差距，在连接自己目标，才有了可以行走的路，在这条道路的起点上，你会迷茫，你会看不清方向，你会陷入黑暗，就像午夜三点入睡早上七点起来的自己，一路爬坑，还是有哪些没学懂的技术语言，一脸懵逼。面对一些无能为力，面对一些错误，面对一些不得不做，面对自己的目标，面对自己的情绪，陷入大脑的一片混乱。这些都是会有的，越在这些或哪些混乱堆在一起的时候，更应该停下来想想自己本身，在没有这些的时候，没有差距的时候，没有混乱的时候，每个人都并不是一无是处的，都会自己的起点，有自己还是擅长的地方，不要被暂时存在的一些差距和混乱让自己被自己所打败！</p>
-<blockquote>
-<p>“一个人并非生来就是被打败的，你尽可以消灭他，可就是打不败他!”</p>
-</blockquote>
-<hr>
-<h5 id="2-看看现在"><a href="#2-看看现在" class="headerlink" title="2.看看现在"></a>2.看看现在</h5><p>面对一下要看一列的这个或那个的技术书籍和文档，一头地扎进去，左蹦右窜，把自己搞得稀里糊涂，每一个都看了一点，每一个都会写一点，实际却用新技术写了不任何东西来。原来会的技术还不足以解决任何问题，现在要学的新东西有在不停的折腾，只能把自己搞跨了，旧的不行，新的不会，付出时间，收获却微乎其微，试用期都难过，并不是没有去花时间搞，也并不完全是学习方法不对，一开始进来就把自己搞细碎了，该有的学习方法打乱，固有处理事情的方式乱套，一切都是从零开始，这样来说，学习的成本太高。就像一个太大的苹果，大到手掌都拿不住的，趴在上面，这边摸一下，那边的又想摸一下，最终还是，吃不到苹果。</p>
-<hr>
-<h5 id="3-回头看看"><a href="#3-回头看看" class="headerlink" title="3.回头看看"></a>3.回头看看</h5><p>回头看看，其实并没有那么糟糕，走进了一个看似牛逼的地方，看到了一些新东西，听了一些名言名句，就这样吧。这些都不是自己的，回头看看自己的。吃饭的技术还是有吧，不至于差的太远吧，写个啥XXX还是能写吧，非得看不见这些，去做一些从零开始的这不是为难吗，何不看看原来的代码，在上面加点，再加点，这不就顺畅了。</p>
-<hr>
-<h5 id="4-踏在自己的身上"><a href="#4-踏在自己的身上" class="headerlink" title="4.踏在自己的身上"></a>4.踏在自己的身上</h5><p>每一步踏自己身上，才会感觉踏实。前脚踏空了没事，这叫进步；如果同时后脚也踏空了，这叫跳崖；把自己捋顺了，一切才会来得快。</p>
+    <p>@(笔记)[blog]</p>
+<h5 id="1-跨域分类"><a href="#1-跨域分类" class="headerlink" title="1. 跨域分类"></a>1. 跨域分类</h5><ul>
+<li>分类<ul>
+<li>简单请求</li>
+<li>非简单请求 （两者区分下面CORS参考网站讲的更详细） </li>
+</ul>
+</li>
+<li>使用中遇到的问题<ul>
+<li>跨域请求，需要发送cookie时，必须同时在后台设置<code>Access-Control-Allow-Credentials: true</code>，前台设置 <code>xhr.withCredentials = true;</code>。同时发送Cookie，<code>Access-Control-Allow-Origin</code>就不能设为星号，必须指定明确的、与请求网页一致的域名。</li>
+<li>实际使用时只设置了前台发送，导致发送第一次Options请求时报错，原因就是后台不满足条件</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-跨域问题的一般前后台解决方案"><a href="#2-跨域问题的一般前后台解决方案" class="headerlink" title="2. 跨域问题的一般前后台解决方案"></a>2. 跨域问题的一般前后台解决方案</h5><ul>
+<li>前后台配置一定要统一，两端同时满足要求</li>
+<li></li>
+</ul>
+<h5 id="3-iframe-跨域登陆问题"><a href="#3-iframe-跨域登陆问题" class="headerlink" title="3. iframe 跨域登陆问题"></a>3. iframe 跨域登陆问题</h5><ul>
+<li>无法设置跨域的iframe中的cookies</li>
+</ul>
+<h5 id="4-cookie总结（跨域请求中的cookie）"><a href="#4-cookie总结（跨域请求中的cookie）" class="headerlink" title="4. cookie总结（跨域请求中的cookie）"></a>4. cookie总结（跨域请求中的cookie）</h5><h5 id="5-记录"><a href="#5-记录" class="headerlink" title="5. 记录"></a>5. 记录</h5><ul>
+<li>同源政策：浏览器的同源政策规定，两个网址只要域名相同和端口相同，就可以共享Cookie。（不包括协议 http \ https）</li>
+</ul>
+<h5 id="6-参考网站"><a href="#6-参考网站" class="headerlink" title="6. 参考网站"></a>6. 参考网站</h5><ul>
+<li><a href="http://javascript.ruanyifeng.com/bom/cookie.html" target="_blank" rel="noopener">阮一峰的Cookie博客</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html" target="_blank" rel="noopener">阮一峰的同源策略博客</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">阮一峰的CORS博客</a></li>
+<li><a href="https://segmentfault.com/a/1190000004322487#articleHeader13" target="_blank" rel="noopener">ajax与XMLHttpRequest</a></li>
+</ul>
 
     
     </div>
