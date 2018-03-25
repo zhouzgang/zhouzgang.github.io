@@ -208,6 +208,9 @@
     <ul>
             <li><i class='fa fa-calendar'></i> 2017-01-07</li>
             
+            <li><i class='fa fa-comments'></i> <a href='#article-comment'><span id='article-comment-count'>0</span></a></li>
+            <li><i class="fa fa-eye"></i> <span id='article-visit-count'>0</span></li>
+            
             <li><i class="fa fa-user"></i> zhouzg</li>
             
             <li><i class="fas fa-copyright"></i>
@@ -364,10 +367,7 @@
 
   
   
-    <div id="comment-not-available">
-      Not available
-      <p><strong>For site maintainer: Please provide <code>appId</code> and <code>appKey</code> in your <code>_data/cutie.yml</code> file for <code>valine</code> comment system.</strong></p>
-    </div>
+    <div id='valine'></div>
   
 
 
@@ -452,6 +452,23 @@
 
 
     
+    
+    
+    
+<script>
+    new Valine({
+        el: '#valine',
+        notify:false, 
+        verify:false,
+        appId: 'xgG8YQ2Eh5owLBlkKWE537Jh-gzGzoHsz',
+        appKey: 'GLq4HtUCMycBhNOItpgBd0sg',
+        placeholder: '_(:з」∠)_一本正经的胡说八道',
+        path:window.location.pathname, 
+        avatar:'retro',
+        lang: 'en'
+    });
+</script>
+
 
 
 
@@ -483,6 +500,11 @@
 
 
 
+<script type="text/javascript">
+  var userip;
+</script>
+<script type="text/javascript" src="https://l2.io/ip.js?var=userip"></script>
+
 
 <script src="/js/post.js"></script>
 
@@ -490,7 +512,7 @@
 changeLayoutOnTouchScreen();
 
 
-var post = new Post('', '');
+var post = new Post('xgG8YQ2Eh5owLBlkKWE537Jh-gzGzoHsz', 'GLq4HtUCMycBhNOItpgBd0sg');
         post.getCommentCount(window.location.pathname, function(count){
             $('#article-comment-count').text(count);
         });

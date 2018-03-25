@@ -176,6 +176,9 @@
 					<li><i class='fa fa-calendar'></i> 2017-01-07</li>
 					
 					
+					<li><i class='fa fa-comments'></i> <span class='card-comment-count'>0</span></li>
+					<li><i class="fa fa-eye"></i> <span class='card-visit-count'>0</span></li>
+					
 					
 			</ul>
 		</div>
@@ -254,6 +257,23 @@
 
 
     
+    
+    
+    
+<script>
+    new Valine({
+        el: '#valine',
+        notify:false, 
+        verify:false,
+        appId: 'xgG8YQ2Eh5owLBlkKWE537Jh-gzGzoHsz',
+        appKey: 'GLq4HtUCMycBhNOItpgBd0sg',
+        placeholder: '_(:з」∠)_一本正经的胡说八道',
+        path:window.location.pathname, 
+        avatar:'retro',
+        lang: 'en'
+    });
+</script>
+
 
 
 
@@ -285,6 +305,11 @@
 
 
 
+<script type="text/javascript">
+  var userip;
+</script>
+<script type="text/javascript" src="https://l2.io/ip.js?var=userip"></script>
+
 
 <script src="/js/post.js"></script>
 
@@ -292,7 +317,7 @@
 changeLayoutOnTouchScreen();
 
 
-var post = new Post('', '');
+var post = new Post('xgG8YQ2Eh5owLBlkKWE537Jh-gzGzoHsz', 'GLq4HtUCMycBhNOItpgBd0sg');
 $('.Card-archive').each(function(){
     var post_url = $(this).attr('id');
     var true_url = $(this).find('.Card-title a').first().attr('href');
