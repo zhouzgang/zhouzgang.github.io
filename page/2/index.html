@@ -10,11 +10,9 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   
+      <title>Zhouzg</title>
   
-      <title>2017 - Archive - Zhouzg</title>
   
-  
-      <title>Archive - Zhouzg</title>
   
   
     
@@ -102,7 +100,7 @@
 	
 	<div class='nav-item' id='nav-item-archive'>
 		
-				<div class='nav-icon active_dot'>
+				<div class='nav-icon'>
 				
 			<a href="/archives/" title='归档'>
 			<img src="/images/icons/blue-line/archive.svg" alt="">
@@ -138,59 +136,118 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div style="flex: 1;">
       
-	
-	
 
+
+<div class="index-container" id='/page/2/index.html' data-name='index' data-version='2.0.6-beta'>
+	<div class='index-intro'>
+		尽心修炼，享受远方!
+	</div>
 	
-		<h2 class='archive-title'>2017</h2>
-	
-	<div class="archive-cards">
+		<div class="grid-2_md-1 grid-equalHeight index-cards">
+		
+			
+
+
+
+
+
+
+
+
+<div class='Card Card-hover Card-index-1' id='/2016/09/21/前进的道路上带上自己/' data-name='前进的道路上带上自己' data-version=''>
 	
 		
-
-
-
-
-<div class='Card-archive' id='/2017/03/09/maven笔记/' data-name='maven笔记' data-version=''>
+		
+	
 	<mark class='Card-badge' style='{visibility: "hidden"}'></mark>
+	<div class='Card-figure'>
+		
+			<a href="/2016/09/21/前进的道路上带上自己/">
+		
+		
+			<img class='grow' src="/images/uncategorized.svg" alt="" onerror='if (this.src != "/images/uncategorized.svg") this.src = "/images/uncategorized.svg"'>
+		
+		</a>
+	</div>
 	<div class="Card-body">
-		<h3 class='Card-title'>
+
+			<div class='Card-title'>
+				<h2>
+				
+					<a href="/2016/09/21/前进的道路上带上自己/">
+				
+				前进的道路上带上自己</a></h2>
+			</div>
+			<div class='Card-excerpt'>
+				<p>
+				
+					<a href="/2016/09/21/前进的道路上带上自己/">
+				
+				
+				
+					@(日常笔记)
+总结非常迷茫的这一个月，为什么行走的痛苦 ...
+				
+				</a></p>
+			</div>
 			
-				<a href="/2017/03/09/maven笔记/">
-			
-			Maven笔记</a>
-		</h3>
-		<div class="Card-meta">
-			<div class='Card-tags'>
+			<div class="Card-meta">
+				<div class='Card-tags'>
 <div class="tags">
 	
 		
 			
-				<label class='tag-1'><a href="/tags/笔记/">笔记</a></label>
+				<label class='tag-1'><a href="/tags/日志/">日志</a></label>
 			
 		
 	
 	</div>
 </div>
-			<ul>
-					<li><i class='fa fa-calendar'></i> 2017-03-09</li>
-					
-					
-					<li><i class='fa fa-comments'></i> <span class='card-comment-count'>0</span></li>
-					<li><i class="fa fa-eye"></i> <span class='card-visit-count'>0</span></li>
-					
-					
-			</ul>
-		</div>
+				<ul>
+						<li><i class='fa fa-calendar'></i> 2016-09-21</li>
+						
+						
+						<li><i class='fa fa-comments'></i> <span class='card-comment-count'>0</span></li>
+						<li><i class="fa fa-eye"></i> <span class='card-visit-count'>0</span></li>
+						
+						
+				</ul>
+			</div>
+		</a>
 	</div>
 </div>
+		
+		</div>
+	
+	<br>
+	<div class='pagination'>
+	
+		<div class="pagination-item">
+			<a href="/" class="prev grow"><b><i class='fas fa-arrow-circle-left'></i></b></a>
+		</div>
+	
+	
+	
+		<div class="pagination-item">
+			
+			
+				
+					<a class='grow' href="/">1</a>
+				
+			
+		</div>
+	
+		<div class="pagination-item">
+			
+			
+				<span>2</span>
+			
+		</div>
+	
 
 	
-	</div>
-
-
-	
-
+</div>
+</div>
   </div>
 
   
@@ -221,7 +278,7 @@
 	
 	<div class='nav-item' id='nav-item-archive'>
 		
-				<div class='nav-icon active_dot'>
+				<div class='nav-icon'>
 				
 			<a href="/archives/" title='归档'>
 			<img src="/images/icons/blue-line/archive.svg" alt="">
@@ -318,12 +375,19 @@ changeLayoutOnTouchScreen();
 
 
 var post = new Post('xgG8YQ2Eh5owLBlkKWE537Jh-gzGzoHsz', 'GLq4HtUCMycBhNOItpgBd0sg');
-$('.Card-archive').each(function(){
+console.log(post);
+$('.Card').each(function(){
     var post_url = $(this).attr('id');
     var true_url = $(this).find('.Card-title a').first().attr('href');
     var card = this;
     if(true_url.startsWith('http')){ //external link
         $(card).find('.Card-title a').first().click(function(e){
+            post.updatePostVersion(post_url); 
+        });
+        $(card).find('.Card-excerpt a').first().click(function(e){
+            post.updatePostVersion(post_url); 
+        });
+        $(card).find('.Card-figure a').first().click(function(e){
             post.updatePostVersion(post_url); 
         });
     }
@@ -333,16 +397,17 @@ $('.Card-archive').each(function(){
             $(card).find('mark.Card-badge').show();
         }else{
             $(card).find('mark.Card-badge').hide();
-        }
+        } 
     });
-    post.getCommentCount(post_url, function(count){
-        $(card).find('.card-comment-count').first().text(count);
-    });
-    post.getVisitCount(post_url, function(count){
-        $(card).find('.card-visit-count').first().text(count);
-    });
+        post.getCommentCount(post_url, function(count){
+            $(card).find('.card-comment-count').first().text(count);
+        });
+        post.getVisitCount(post_url, function(count){
+            $(card).find('.card-visit-count').first().text(count);
+        });
     
 });
+
 
 </script>
 
