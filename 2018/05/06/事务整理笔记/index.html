@@ -114,7 +114,7 @@
 		
 				<div class='nav-icon'>
 				
-			<a href="/archives/" title='Archives'>
+			<a href="/archives/" title='归档'>
 			<img src="/images/icons/blue-line/archive.svg" alt="">
 			</a>
 		</div>
@@ -123,7 +123,7 @@
 		
 		<div class='nav-icon'>
 		
-			<a href="/search/" title='Search'>
+			<a href="/search/" title='搜索'>
 			<img src="/images/icons/blue-line/search.svg" alt="">
 			</a>
 		</div>
@@ -317,10 +317,15 @@
 <ol>
 <li>编程式事务（比较灵活，但是代码量大，存在重复的代码比较多），声明式事务（更灵活）</li>
 <li>操作管理类（PlatformTransactionManager），事务状态（TransactionStatus）和定义了事务的传播行为和隔离级别的类（TransactionDefinition）</li>
-<li>事物的4基本基本属性，分别是：“传播行为”（事务方法被另一个事务方法调用时，必须指定事务应该如何传播）、“隔离级别”（一个事务可能受其他并发事务影响的程度。）、“超时时间”（在特定时间内事务如果没有执行完毕，那么就会自动回滚）、“只读”、“回滚规则”（事务五边形的最后一个方面是一组规则，这些规则定义了哪些异常会导致事务回滚而哪些不会。)</li>
-<li>传播行为： （理解：嵌套事务相互影响规则）</li>
-</ol>
-<ul>
+<li>事物的4基本基本属性，分别是：<ul>
+<li>“传播行为”（事务方法被另一个事务方法调用时，必须指定事务应该如何传播）</li>
+<li>“隔离级别”（一个事务可能受其他并发事务影响的程度。）</li>
+<li>“超时时间”（在特定时间内事务如果没有执行完毕，那么就会自动回滚）</li>
+<li>“只读”</li>
+<li>“回滚规则”（事务五边形的最后一个方面是一组规则，这些规则定义了哪些异常会导致事务回滚而哪些不会。)</li>
+</ul>
+</li>
+<li>传播行为： （理解：嵌套事务相互影响规则）<ul>
 <li>PROPAGATION_REQUIRED:表示当前方法必须运行在事务中。如果当前事务存在，方法将会在该事务中运行。否则，会启动一个新的事务</li>
 <li>PROPAGATION_SUPPORTS:如果存在一个事务，支持当前事务。如果没有事务，则非事务的执行。</li>
 <li>PROPAGATION_MANDATORY:如果已经存在一个事务，支持当前事务。如果没有一个活动的事务，则抛出异常。</li>
@@ -329,20 +334,33 @@
 <li>PROPAGATION_NEVER：总是非事务地执行，如果存在一个活动事务，则抛出异常。</li>
 <li>PROPAGATION_NESTED： 如果一个活动的事务存在，则运行在一个嵌套的事务中. 如果没有活动事务, 则按TransactionDefinition.PROPAGATION_REQUIRED 属性执行。</li>
 </ul>
-<p>数据库事务：<br>事务的特征：</p>
+</li>
+</ol>
+<p>数据库事务：</p>
+<ol>
+<li><p>事务的特征：</p>
 <ul>
 <li>原子性(Atomicity)：事务所包含的一系列数据库操作要么全部成功执行，要么全部回滚；</li>
 <li>一致性(Consistency)：事务的执行结果必须使数据库从一个一致性状态到另一个一致性状态；</li>
 <li>隔离性(Isolation)：并发执行的事务之间不能相互影响；</li>
-<li>持久性(Durability)：事务一旦提交，对数据库中数据的改变是永久性的。<br>事务并发带来的问题</li>
+<li>持久性(Durability)：事务一旦提交，对数据库中数据的改变是永久性的。</li>
+</ul>
+</li>
+<li><p>事务并发带来的问题</p>
+<ul>
 <li>脏读：一个事务读取了另一个事务未提交的数据；</li>
 <li>不可重复读：不可重复读的重点是修改，同样条件下两次读取结果不同，也就是说，被读取的数据可以被其它事务修改；</li>
-<li>幻读：幻读的重点在于新增或者删除，同样条件下两次读出来的记录数不一样。<br>隔离级别</li>
+<li>幻读：幻读的重点在于新增或者删除，同样条件下两次读出来的记录数不一样。</li>
+</ul>
+</li>
+<li>隔离级别<ul>
 <li>READ UNCOMMITTED：最低级别的隔离，通常又称为dirty read，它允许一个事务读取另一个事务还没commit的数据，这样可能会提高性能，但是会导致脏读问题；</li>
 <li>READ COMMITTED：在一个事务中只允许对其它事务已经commit的记录可见，该隔离级别不能避免不可重复读问题；</li>
 <li>REPEATABLE READ：在一个事务开始后，其他事务对数据库的修改在本事务中不可见，直到本事务commit或rollback。但是，其他事务的insert/delete操作对该事务是可见的，也就是说，该隔离级别并不能避免幻读问题。在一个事务中重复select的结果一样，除非本事务中update数据库。</li>
 <li>SERIALIZABLE：最高级别的隔离，只允许事务串行执行</li>
 </ul>
+</li>
+</ol>
 <p><img src="/images/B0015.JPG" alt="B0015.JPG"></p>
 <p>分布式事务：<br>待总结……</p>
 <p>学习网址：</p>
@@ -363,7 +381,7 @@
         <div class="article-comment" id='article-comment'>
             
 
-<h1>Comment</h1>
+<h1>评论</h1>
 
   
   
@@ -381,8 +399,8 @@
 <footer id='footer'>
     <div class='footer-copyright'>
         <div>
-            <p> Copyright by <a href="">zhouzg </a> @ 2018</p>
-            <p>Designed by: <i class="fas fa-paint-brush"></i> <a href="https://moober.cn">Moober</a> and <i class="fas fa-graduation-cap"></i> <a href="https://qutang.github.io">Qu Tang</a> &bull; Theme: <a href="">Cutie 2.0.6-beta-Taurus</a> &bull; Powered by <a href="http://hexo.io">Hexo.</a></p>
+            <p> 版权所有 <a href="">zhouzg </a> @ 2018</p>
+            <p>设计: <i class="fas fa-paint-brush"></i> <a href="https://moober.cn">Moober</a> 和 <i class="fas fa-graduation-cap"></i> <a href="https://qutang.github.io">Qu Tang</a> &bull; 主题: <a href="">Cutie 2.0.6-beta-Taurus</a> &bull; 由 <a href="http://hexo.io">Hexo.</a> 强力驱动</p>
         </div>
     </div>
     
@@ -418,7 +436,7 @@
 		
 				<div class='nav-icon'>
 				
-			<a href="/archives/" title='Archives'>
+			<a href="/archives/" title='归档'>
 			<img src="/images/icons/blue-line/archive.svg" alt="">
 			</a>
 		</div>
@@ -427,7 +445,7 @@
 		
 		<div class='nav-icon'>
 		
-			<a href="/search/" title='Search'>
+			<a href="/search/" title='搜索'>
 			<img src="/images/icons/blue-line/search.svg" alt="">
 			</a>
 		</div>
