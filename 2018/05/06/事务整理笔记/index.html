@@ -15,7 +15,7 @@
   
     
   
-      <title>maven学习笔记 - Zhouzg</title>
+      <title>事务整理笔记 - Zhouzg</title>
   
   
   <meta name="description" content="尽心修炼，享受远方！">
@@ -189,14 +189,14 @@
 
 
 
-<article class="article" id="/2018/03/17/maven学习笔记/" data-name='maven学习笔记' data-version="">
+<article class="article" id="/2018/05/06/事务整理笔记/" data-name='事务整理笔记' data-version="">
 
     <!-- Title -->
     <div class='article-header'>
          
          <h1 class='article-title'>
-            <a href="/2018/03/17/maven学习笔记/">
-                Maven学习笔记
+            <a href="/2018/05/06/事务整理笔记/">
+                事务整理笔记
             </a>
         </h1>
         <!-- TODO: support nested categories,display them nicely -->
@@ -206,7 +206,7 @@
     <!-- Date and Author -->
     <div class='article-meta'>
     <ul>
-            <li><i class='fa fa-calendar'></i> 2018-03-17</li>
+            <li><i class='fa fa-calendar'></i> 2018-05-06</li>
             
             <li><i class='fa fa-comments'></i> <a href='#article-comment'><span id='article-comment-count'>0</span></a></li>
             <li><i class="fa fa-eye"></i> <span id='article-visit-count'>0</span></li>
@@ -227,7 +227,11 @@
 <div class="tags">
 	
 		
-			<label class='tag-1'><a href="/tags/笔记/">笔记</a></label>
+			<label class='tag-1'><a href="/tags/事务/">事务</a></label>
+		
+	
+		
+			<label class='tag-2'><a href="/tags/笔记/">笔记</a></label>
 		
 	
 	</div>
@@ -286,10 +290,7 @@
   <h3>Quick Read</h3>
 </div>
 <div class="card-text">
-  <p id='text-post-summary'>@(笔记)
-Maven 是一个项目管理和构建自动化工具。理解：一直不能很好的使用Maven，只把Maven叫做项目管理工具，其实更应该是构建自动化工具；那么再结合前端，npm，yarn是包管理工具，webpack便是打包构建工具，也是有打包流程，和插件之说。
-核心概念：POM (Project Object Model)Maven 插件Maven 生命周期Maven 依赖管理       Maven 库
-Maven...</p>
+  <p id='text-post-summary'>事务，指访问并可能更新数据库中各种数据项的一个程序执行单元(unit)。spring...</p>
 </div>
         </div> -->
     </div>
@@ -312,63 +313,46 @@ Maven...</p>
 
     </div>
     <div class='article-content'>
-    <p>@(笔记)</p>
-<p>Maven 是一个项目管理和构建自动化工具。<br>理解：一直不能很好的使用Maven，只把Maven叫做项目管理工具，其实更应该是构建自动化工具；那么再结合前端，npm，yarn是包管理工具，webpack便是打包构建工具，也是有打包流程，和插件之说。</p>
-<p>核心概念：<br>POM (Project Object Model)<br>Maven 插件<br>Maven 生命周期<br>Maven 依赖管理<br>       Maven 库</p>
-<p>Maven 使用约定优于配置的原则，有约定的项目结构。</p>
-<p>标准目录结构：<br><img src="/images/B0003.JPG" alt="B0003.JPG"></p>
-<p>插件：一个目标是一个工作单元，而插件则是一个或者多个目标的集合。比如说Jar插件，Compiler插件，Surefire插件等。从看名字就能知道，Jar 插件包含建立Jar文件的目标， Compiler 插件包含编译源代码和单元测试代码的目标。Surefire 插件的话，则是运行单元测试。<br>看到这里，估计你能明白了，mvn 本身不会做太多的事情，它不知道怎么样编译或者怎么样打包。它把构建的任务交给插件去做。插件定义了常用的构建逻辑，能够被重复利用。这样做的好处是，一旦插件有了更新，那么所有的 maven 用户都能得到更新。</p>
-<p>有序生命周期:</p>
-<ul>
-<li>validate： 用于验证项目的有效性和其项目所需要的内容是否具备</li>
-<li>initialize：初始化操作，比如创建一些构建所需要的目录等。</li>
-<li>generate-sources：用于生成一些源代码，这些源代码在compile phase中需要使用到</li>
-<li>process-sources：对源代码进行一些操作，例如过滤一些源代码</li>
-<li>generate-resources：生成资源文件（这些文件将被包含在最后的输入文件中）</li>
-<li>process-resources：对资源文件进行处理</li>
-<li>compile：对源代码进行编译</li>
-<li>process-classes：对编译生成的文件进行处理</li>
-<li>generate-test-sources：生成测试用的源代码</li>
-<li>process-test-sources：对生成的测试源代码进行处理</li>
-<li>generate-test-resources：生成测试用的资源文件</li>
-<li>process-test-resources：对测试用的资源文件进行处理</li>
-<li>test-compile：对测试用的源代码进行编译</li>
-<li>process-test-classes：对测试源代码编译后的文件进行处理</li>
-<li>test：进行单元测试</li>
-<li>prepare-package：打包前置操作</li>
-<li>package：打包</li>
-<li>pre-integration-test：集成测试前置操作     </li>
-<li>integration-test：集成测试</li>
-<li>post-integration-test：集成测试后置操作</li>
-<li>install：将打包产物安装到本地maven仓库</li>
-<li>deploy：将打包产物安装到远程仓库</li>
-</ul>
-<p>Maven内置变量说明：</p>
-<ul>
-<li>${basedir} 项目根目录</li>
-<li>${project.build.directory} 构建目录，缺省为target</li>
-<li>${project.build.outputDirectory} 构建过程输出目录，缺省为target/classes</li>
-<li>${project.build.finalName} 产出物名称，缺省为${project.artifactId}-${project.version}</li>
-<li>${project.packaging} 打包类型，缺省为jar</li>
-<li>${project.xxx} 当前pom文件的任意节点的内容</li>
-</ul>
-<p>踩坑列表：</p>
+    <p>事务，指访问并可能更新数据库中各种数据项的一个程序执行单元(unit)。<br>spring 事务：</p>
 <ol>
-<li>setting.xml 文件里的内容报错，导致问题一直无法被定位。积累maven配置有用的优先级，进行问题排查。</li>
-<li>Jar 包下载失败解决办法，可能是因为下载jar包中断导致本地仓库有不完整jar包。先删除jar包，重新下载。</li>
+<li>编程式事务（比较灵活，但是代码量大，存在重复的代码比较多），声明式事务（更灵活）</li>
+<li>操作管理类（PlatformTransactionManager），事务状态（TransactionStatus）和定义了事务的传播行为和隔离级别的类（TransactionDefinition）</li>
+<li>事物的4基本基本属性，分别是：“传播行为”（事务方法被另一个事务方法调用时，必须指定事务应该如何传播）、“隔离级别”（一个事务可能受其他并发事务影响的程度。）、“超时时间”（在特定时间内事务如果没有执行完毕，那么就会自动回滚）、“只读”、“回滚规则”（事务五边形的最后一个方面是一组规则，这些规则定义了哪些异常会导致事务回滚而哪些不会。)</li>
+<li>传播行为： （理解：嵌套事务相互影响规则）</li>
 </ol>
+<ul>
+<li>PROPAGATION_REQUIRED:表示当前方法必须运行在事务中。如果当前事务存在，方法将会在该事务中运行。否则，会启动一个新的事务</li>
+<li>PROPAGATION_SUPPORTS:如果存在一个事务，支持当前事务。如果没有事务，则非事务的执行。</li>
+<li>PROPAGATION_MANDATORY:如果已经存在一个事务，支持当前事务。如果没有一个活动的事务，则抛出异常。</li>
+<li>PROPAGATION_REQUIRES_NEW:总是开启一个新的事务。如果一个事务已经存在，则将这个存在的事务挂起。内部事务结果依然被提交。</li>
+<li>PROPAGATION_NOT_SUPPORTED：总是非事务地执行，并挂起任何存在的事务。</li>
+<li>PROPAGATION_NEVER：总是非事务地执行，如果存在一个活动事务，则抛出异常。</li>
+<li>PROPAGATION_NESTED： 如果一个活动的事务存在，则运行在一个嵌套的事务中. 如果没有活动事务, 则按TransactionDefinition.PROPAGATION_REQUIRED 属性执行。</li>
+</ul>
+<p>数据库事务：<br>事务的特征：</p>
+<ul>
+<li>原子性(Atomicity)：事务所包含的一系列数据库操作要么全部成功执行，要么全部回滚；</li>
+<li>一致性(Consistency)：事务的执行结果必须使数据库从一个一致性状态到另一个一致性状态；</li>
+<li>隔离性(Isolation)：并发执行的事务之间不能相互影响；</li>
+<li>持久性(Durability)：事务一旦提交，对数据库中数据的改变是永久性的。<br>事务并发带来的问题</li>
+<li>脏读：一个事务读取了另一个事务未提交的数据；</li>
+<li>不可重复读：不可重复读的重点是修改，同样条件下两次读取结果不同，也就是说，被读取的数据可以被其它事务修改；</li>
+<li>幻读：幻读的重点在于新增或者删除，同样条件下两次读出来的记录数不一样。<br>隔离级别</li>
+<li>READ UNCOMMITTED：最低级别的隔离，通常又称为dirty read，它允许一个事务读取另一个事务还没commit的数据，这样可能会提高性能，但是会导致脏读问题；</li>
+<li>READ COMMITTED：在一个事务中只允许对其它事务已经commit的记录可见，该隔离级别不能避免不可重复读问题；</li>
+<li>REPEATABLE READ：在一个事务开始后，其他事务对数据库的修改在本事务中不可见，直到本事务commit或rollback。但是，其他事务的insert/delete操作对该事务是可见的，也就是说，该隔离级别并不能避免幻读问题。在一个事务中重复select的结果一样，除非本事务中update数据库。</li>
+<li>SERIALIZABLE：最高级别的隔离，只允许事务串行执行</li>
+</ul>
+<p><img src="/images/B0015.JPG" alt="B0015.JPG"></p>
+<p>分布式事务：<br>待总结……</p>
 <p>学习网址：</p>
 <ol>
-<li><a href="http://www.oracle.com/technetwork/cn/community/java/apache-maven-getting-started-1-406235-zhs.html" target="_blank" rel="noopener">orcale的maven教程</a></li>
-<li><a href="http://www.cnblogs.com/pixy/p/4798089.html" target="_blank" rel="noopener">Maven 资源配置文件</a></li>
-<li><a href="http://www.cnblogs.com/pixy/p/4977550.html" target="_blank" rel="noopener">Maven 常用插件</a></li>
-<li><a href="http://www.cnblogs.com/acm-bingzi/p/mavenSpringBootPlugin.html" target="_blank" rel="noopener">springBoot Maven插件的作用</a></li>
-<li><a href="http://www.voidcn.com/article/p-krttmics-brm.html" target="_blank" rel="noopener">Maven插件</a></li>
-<li><a href="http://blog.csdn.net/captian_900331/article/details/50897831" target="_blank" rel="noopener">Jar下载失败解决办法</a></li>
-</ol>
-<p>参考知识点：</p>
-<ol>
-<li>Artifact 的词源是拉丁语 arte(艺术) + factum(做、造)，翻译为「（手）工艺品」</li>
+<li>(spring 事务总结)[<a href="https://juejin.im/entry/58f0a38d61ff4b0058e62384]" target="_blank" rel="noopener">https://juejin.im/entry/58f0a38d61ff4b0058e62384]</a></li>
+<li>(数据库总结)[<a href="https://blog.csdn.net/justloveyou_/article/details/78308460]" target="_blank" rel="noopener">https://blog.csdn.net/justloveyou_/article/details/78308460]</a></li>
+<li>(spring事务简单实现)[<a href="https://my.oschina.net/huangyong/blog/159852]" target="_blank" rel="noopener">https://my.oschina.net/huangyong/blog/159852]</a></li>
+<li>(@Transactional原理)[<a href="http://tech.lede.com/2017/02/06/rd/server/SpringTransactional/]" target="_blank" rel="noopener">http://tech.lede.com/2017/02/06/rd/server/SpringTransactional/]</a></li>
+<li>(分布式事务解决方案)[<a href="http://www.roncoo.com/article/detail/124243]" target="_blank" rel="noopener">http://www.roncoo.com/article/detail/124243]</a></li>
+<li>(TCC与2PC区别)[<a href="https://blog.csdn.net/zhangjq520/article/details/78433686]" target="_blank" rel="noopener">https://blog.csdn.net/zhangjq520/article/details/78433686]</a></li>
 </ol>
 
     
