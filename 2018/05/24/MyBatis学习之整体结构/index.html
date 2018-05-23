@@ -338,29 +338,30 @@ d. 事务管理机制
 </code></pre></li>
 </ol>
 <p>整体构建结构如下：</p>
+<p><img src="/images/mybatis0003.JPG" alt="mybatis0003.JPG"></p>
 <p>每个基于 MyBatis 的应用都是以一个 SqlSessionFactory 的实例为中心，SqlSessionFactoryBuilder 从 XML 配置文件或一个预先定制的 Configuration 的实例构建出 SqlSessionFactory 的实例。<br>SqlSessionFactory 创建 SqlSession 实例，SqlSession 完全包含面向数据库执行 SQL 命令所需的所有方法。</p>
-<p>相关源码简单分析：<br>Configuration 配置类，与之相对应的是 API 的配置方式。主要构件 MyBatis 中的各种配置属性，具体的可以在官网文档中找到相似的属性定义。</p>
-<p>另一种是通过 XML 格式配置：通过 SqlSessionFactoryBuilder 类在解析成 Configuration 类。构建时序图如下：</p>
-<p>具体的 parse() 方法获取到 configuration 节点，在分类解析不同的节点属性，如下：</p>
-<p>得到 Configuration 配置类之后，便可以创建 DefaultSqlSessionFactory 对象，DefaultSqlSessionFactory 提供了openSessionFromConnection 和 openSessionFromDataSource 两种创建 SqlSession 的方式，区别在于构建 ManagedTransaction 的方式不同，本质都是一样的，取得数据库的连接。SqlSession 创建好之后，便可以通过 Executor 执行具体的 SQL 语句了，执行流程如下：</p>
-<p>先了解一下 Executor 接口和有哪些实现类。</p>
-<p>抽象类 BaseExecutor 主要定义了 Transaction 和 Configuration, 使用模板方法定义了主要的执行流程，在 SimpleExecutor 实现了具体的相关操作。</p>
-<p>例如 doQuery() 方法:</p>
-<p>再调用私有方法 prepareStatement() 使用 BaseStatementHandler 抽象类处理 statementLog，并且设置事务中设置的超时时间。</p>
-<p>BaseStatementHandler 的处理过程：这里返回的 Statement 是 java.sql 包下面的接口，实际上调用的是 Connection 接口的实现类中的 createStatement() 方法，具体的 JDBC 协议实现类中返回的 Statement (例如：JDBCStatement) 会实现 java.sql 包下的 Statement 接口。</p>
-<p>得到 Statement 之后， 回到 doQuery() 发方法 执行 SimpleStatementHandler 的query(stmt, resultHandler) 方法：</p>
-<p>再 statement.execute(sql) 会调用具体实现类的 execute 方法，例如 JDBCStatement 的 execute 方法会再调用私有方法 fetchResult() 方法：</p>
-<p>再拿到 ResultSet 后，使用 DefaultResultSetHandler 对其进行处理：</p>
-<p>到此，便走完了一个创建 Session ，执行 Sql，处理结果的流程，整体流程图(点击查看大图)：</p>
-<p>用到设计模式：<br>工厂方法模式： 满足了OCP（开闭原则，对扩展开放，对修改关闭）原则， 对构造过程进行选择。例如：</p>
-<p>模版方法模式：处理某个流程的代码已经都具备，但是其中某个节点的代码暂时不 能确定。因此采用工厂方法模式将这个节点的代码实现转移给子类完成 即：处理步骤父类中定义好，具体实现延迟到子类中定义。例如：</p>
+<p>相关源码简单分析：<br>Configuration 配置类，与之相对应的是 API 的配置方式。主要构件 MyBatis 中的各种配置属性，具体的可以在官网文档中找到相似的属性定义。<br><img src="/images/mybatis0004.JPG" alt="mybatis0004.JPG"></p>
+<p>另一种是通过 XML 格式配置：通过 SqlSessionFactoryBuilder 类在解析成 Configuration 类。构建时序图如下：<br><img src="/images/mybatis0005.JPG" alt="mybatis0005.JPG"></p>
+<p>具体的 parse() 方法获取到 configuration 节点，在分类解析不同的节点属性，如下：<br><img src="/images/mybatis0006.JPG" alt="mybatis0006.JPG"></p>
+<p>得到 Configuration 配置类之后，便可以创建 DefaultSqlSessionFactory 对象，DefaultSqlSessionFactory 提供了openSessionFromConnection 和 openSessionFromDataSource 两种创建 SqlSession 的方式，区别在于构建 ManagedTransaction 的方式不同，本质都是一样的，取得数据库的连接。SqlSession 创建好之后，便可以通过 Executor 执行具体的 SQL 语句了，执行流程如下：<br><img src="/images/mybatis0007.JPG" alt="mybatis0007.JPG"></p>
+<p>先了解一下 Executor 接口和有哪些实现类。<br><img src="/images/mybatis0008.JPG" alt="mybatis0008.JPG"></p>
+<p>抽象类 BaseExecutor 主要定义了 Transaction 和 Configuration, 使用模板方法定义了主要的执行流程，在 SimpleExecutor 实现了具体的相关操作。<br><img src="/images/mybatis0009.JPG" alt="mybatis0009.JPG"></p>
+<p>例如 doQuery() 方法:<br><img src="/images/mybatis0010.JPG" alt="mybatis0010.JPG"></p>
+<p>再调用私有方法 prepareStatement() 使用 BaseStatementHandler 抽象类处理 statementLog，并且设置事务中设置的超时时间。<br><img src="/images/mybatis0011.JPG" alt="mybatis0011.JPG"></p>
+<p>BaseStatementHandler 的处理过程：这里返回的 Statement 是 java.sql 包下面的接口，实际上调用的是 Connection 接口的实现类中的 createStatement() 方法，具体的 JDBC 协议实现类中返回的 Statement (例如：JDBCStatement) 会实现 java.sql 包下的 Statement 接口。<br><img src="/images/mybatis0012.JPG" alt="mybatis0012.JPG"></p>
+<p>得到 Statement 之后， 回到 doQuery() 发方法 执行 SimpleStatementHandler 的query(stmt, resultHandler) 方法：<br><img src="/images/mybatis0013.JPG" alt="mybatis0013.JPG"></p>
+<p>再 statement.execute(sql) 会调用具体实现类的 execute 方法，例如 JDBCStatement 的 execute 方法会再调用私有方法 fetchResult() 方法：<br><img src="/images/mybatis0014.JPG" alt="mybatis0014.JPG"></p>
+<p>再拿到 ResultSet 后，使用 DefaultResultSetHandler 对其进行处理：<br><img src="/images/mybatis0015.JPG" alt="mybatis0015.JPG"></p>
+<p>到此，便走完了一个创建 Session ，执行 Sql，处理结果的流程，整体流程图(点击查看大图)：<br><img src="/images/mybatis0016.JPG" alt="mybatis0016.JPG"></p>
+<p>用到设计模式：<br>工厂方法模式： 满足了OCP（开闭原则，对扩展开放，对修改关闭）原则， 对构造过程进行选择。例如：<br><img src="/images/mybatis0017.JPG" alt="mybatis0017.JPG"></p>
+<p>模版方法模式：处理某个流程的代码已经都具备，但是其中某个节点的代码暂时不 能确定。因此采用工厂方法模式将这个节点的代码实现转移给子类完成 即：处理步骤父类中定义好，具体实现延迟到子类中定义。例如：<br><img src="/images/mybatis0008.JPG" alt="mybatis0008.JPG"></p>
 <p>最后，MyBatis构建在 JDBC 协议之上，简化了JDBC 代码和手动设置参数以及获取结果集的处理，支持定制化SQL，但具体的 SQL 执行，还是调用的的是 JDBC 的实现完成的。</p>
 <p>参考网址：</p>
 <ol>
 <li><a href="https://github.com/mybatis/mybatis-3" target="_blank" rel="noopener">MyBatis 官网源码</a></li>
-<li>(MyBatis官网文档)[<a href="http://www.mybatis.org/mybatis-3/zh/index.html]" target="_blank" rel="noopener">http://www.mybatis.org/mybatis-3/zh/index.html]</a></li>
-<li>(MyBatis-Spring官网文档)[<a href="http://www.mybatis.org/spring/zh/index.html]" target="_blank" rel="noopener">http://www.mybatis.org/spring/zh/index.html]</a> </li>
-<li>(深入理解MyBatis Blog)[<a href="https://blog.csdn.net/luanlouis/article/details/40422941]" target="_blank" rel="noopener">https://blog.csdn.net/luanlouis/article/details/40422941]</a></li>
+<li><a href="http://www.mybatis.org/mybatis-3/zh/index.html" target="_blank" rel="noopener">MyBatis官网文档</a></li>
+<li><a href="http://www.mybatis.org/spring/zh/index.html" target="_blank" rel="noopener">MyBatis-Spring官网文档</a></li>
+<li><a href="https://blog.csdn.net/luanlouis/article/details/40422941" target="_blank" rel="noopener">深入理解MyBatis Blog</a></li>
 </ol>
 
     
