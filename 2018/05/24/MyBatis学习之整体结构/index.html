@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  
+  
+  
+  
+    
+  
+      <title>MyBatis学习之整体结构 - Zhouzg</title>
+  
+  
+  <meta name="description" content="尽心修炼，享受远方！">
+  <meta name="author" content="zhouzg">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Load scheme css -->
+  <link rel="stylesheet" href="/css/lightgallery.css">
+  
+
+
+
+
+
+    <link rel="stylesheet" href="/css/taurus.css">
+    
+        <link rel="stylesheet" href="/css/scheme-taurus/animations.css">
+    
+
+
+  <!-- load font awesome 5 -->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="/js/social-share.min.js"></script>
+    <script src="/js/theme.js"></script>
+
+  <!-- include cookie.js -->
+  
+  
+
+  <!-- include comment system code -->
+  
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+</head>
+<body style="display: flex; flex-direction: column; min-height: 100vh;">
+
+ 
+
+<header id="header">
+	<div class="header-title">
+		
+		<div class='header-logo'>
+			<a href='/'>
+				<img src='/images/theme-icon.svg' />
+			</a>
+		</div>
+		<div class='header-text'>
+			<h1>
+				<a href="/">Zhouzg</a>
+			</h1>
+			<subtitle>
+				
+			</subtitle>
+		</div>
+		
+	</div>
+	<div id='header-nav'>
+		
+
+
+
+<nav id="nav">
+	
+	
+	
+	<div class='nav-item' id='nav-item-toc'>
+		
+
+
+
+
+<div class="toc-button" onclick='toggleTOC(event);' ontouchstart='toggleTOC(event);'>
+    <img src="/images/icons/blue-line/toc.svg" alt="">
+</div>
+
+	</div>
+	
+	<div class='nav-item' id='nav-item-archive'>
+		
+				<div class='nav-icon'>
+				
+			<a href="/archives/" title='Archives'>
+			<img src="/images/icons/blue-line/archive.svg" alt="">
+			</a>
+		</div>
+	</div>
+	<div class='nav-item' id='nav-item-search'>
+		
+		<div class='nav-icon'>
+		
+			<a href="/search/" title='Search'>
+			<img src="/images/icons/blue-line/search.svg" alt="">
+			</a>
+		</div>
+	</div>
+	<div class="nav-item" id='nav-item-more'>
+		<div class="nav-icon">
+				<a href='#' onclick='onClickMenuIcon(event);' ontouchstart='onClickMenuIcon(event);'>
+				<img src="/images/icons/blue-line/menu.svg" alt="">
+				</a>
+		</div>
+		<div class="nav-more-menu">
+		
+		
+	</div>
+	</div>
+</nav>
+
+	</div>
+</header>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div style="flex: 1;">
+      <style>
+    body {
+        background-color: white;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+    
+    
+        
+    
+
+    
+        
+    
+
+
+
+
+
+
+
+
+
+<article class="article" id="/2018/05/24/MyBatis学习之整体结构/" data-name='MyBatis学习之整体结构' data-version="">
+
+    <!-- Title -->
+    <div class='article-header'>
+         
+         <h1 class='article-title'>
+            <a href="/2018/05/24/MyBatis学习之整体结构/">
+                MyBatis学习之整体结构
+            </a>
+        </h1>
+        <!-- TODO: support nested categories,display them nicely -->
+        
+    </div>
+    
+    <!-- Date and Author -->
+    <div class='article-meta'>
+    <ul>
+            <li><i class='fa fa-calendar'></i> 2018-05-24</li>
+            
+            <li><i class='fa fa-comments'></i> <a href='#article-comment'><span id='article-comment-count'>0</span></a></li>
+            <li><i class="fa fa-eye"></i> <span id='article-visit-count'>0</span></li>
+            
+            <li><i class="fa fa-user"></i> zhouzg</li>
+            
+            <li><i class="fas fa-copyright"></i>
+            
+                
+                
+            
+            
+                <a href=https://creativecommons.org/licenses/by-nc-nd/4.0/>CC BY-NC-ND 4.0</a>
+            
+            </li>
+    </ul>
+    
+<div class="tags">
+	
+		
+			<label class='tag-1'><a href="/tags/mybatis/">Mybatis</a></label>
+		
+	
+		
+			<label class='tag-2'><a href="/tags/笔记/">笔记</a></label>
+		
+	
+	</div>
+
+    </div>
+    <div class='article-cards'>
+        <!-- Author Card -->
+        <!---
+        <div class='Card-article Card-author'>
+            <div class='card-title'>
+                <h3></h3>
+            </div>
+            <div class='card-content'>
+                    <div class="author-meta">
+                            <div class='author-figure'>
+                                <img src="" alt="">
+                            </div>
+                            <div class='author-name'>
+                                zhouzg
+                            </div>
+                        </div>
+                        <div class="author-ai">
+                            <div class='author-intro'>
+                                <!-- TODO: auto generating author description -->
+                                <!-- 
+                            </div>
+                            <div class="author-articles">
+                                <!-- TODO: auto generating author articles -->
+                                <!-- <ul>
+                                    <li>Article 1</li>
+                                    <li>Article 2</li>
+                                    <li>Article 3</li>
+                                    <li>Article 4</li>
+                                    <li>Article 5</li>
+                                    <li>Article 6</li>
+                                </ul>
+                            </div>
+                        </div>
+            </div>
+            
+        </div> -->
+
+        <!-- Visit Card -->
+        <!-- <div class="Card-article Card-visit"> -->
+            <!-- <div class="card-title">
+  <h3>Post Visit</h3>
+</div>
+<div class="card-chart">
+  <div id='chart-post-visit'></div>
+</div> -->
+        <!-- </div> -->
+        
+        <!-- Auto Excerpt Card -->
+        <!-- <div class="Card-article Card-excerpt">
+            <div class="card-title">
+  <h3>Quick Read</h3>
+</div>
+<div class="card-text">
+  <p id='text-post-summary'>写在前面，一直以来都是以一种满足将 SQL 扔到数据库中获取数据的方式使用的MyBatis，而并没明白，Mybatis到底做了什么，原理又是怎样的，做了哪些优化，优缺点如何等等。最近计划将快刀斩乱麻式学的东西梳理一遍，写成blog，形成自己的体系。MyBatis 相对来说体积小一些，那就以它为第一个小目标。
+这篇主要介绍 MyBatis...</p>
+</div>
+        </div> -->
+    </div>
+    
+    <!-- Gallery -->
+    <!-- TODO: add a slider to gallery -->
+    
+
+    <!-- Content -->
+    <!-- TODO: support table of content -->
+    <div class="article-toc" id='article-toc'>
+        
+
+
+
+
+<div class="toc-button" onclick='toggleTOC(event);' ontouchstart='toggleTOC(event);'>
+    <img src="/images/icons/blue-line/toc.svg" alt="">
+</div>
+
+    </div>
+    <div class='article-content'>
+    <p>写在前面，一直以来都是以一种满足将 SQL 扔到数据库中获取数据的方式使用的MyBatis，而并没明白，Mybatis到底做了什么，原理又是怎样的，做了哪些优化，优缺点如何等等。最近计划将快刀斩乱麻式学的东西梳理一遍，写成blog，形成自己的体系。MyBatis 相对来说体积小一些，那就以它为第一个小目标。</p>
+<p>这篇主要介绍 MyBatis 的整体结构，了解整体框架的架构，梳理要整理的模块，以便有个整体印象。过了一篇官网文档和网上写得好的blog，画了一个大致的导图：</p>
+<p><img src="/images/mybatis0001.JPG" alt="mybatis0001.JPG"></p>
+<p>大致按照这个结构来，在结合一些源码看看具体是如何实现的，体会一下用来哪些设计模式来解决场景问题的。其实官网文档写的非常清晰了，学一个东西先过一篇官网文档是一个强制要养成的习惯。</p>
+<p>～～～<br>MyBatis：ORM 框架，相对于 Hibernate 全自动 ORM 框架来说，MyBatis 是半自动的。</p>
+<p>先看架构图：(拿来主义一张架构图，已征求原博主)<br><img src="/images/mybatis0002.JPG" alt="mybatis0002.JPG"></p>
+<p>架构解析：</p>
+<ol>
+<li>接口层： 和数据库交互的方式<pre><code>交互方式有两种：
+     a.使用传统的MyBatis提供的API；
+     b. 使用Mapper接口
+</code></pre></li>
+<li>数据处理层<pre><code>a. 通过传入参数构建动态SQL语句；
+b. SQL语句的执行以及封装查询结果集成List&lt;E&gt;
+</code></pre></li>
+<li>框架支撑层<pre><code>a. SQL语句的配置方式
+b. 缓存机制
+c. 连接池管理机制
+d. 事务管理机制
+</code></pre></li>
+<li>引导层<pre><code>MyBatis 提供两种方式来引导MyBatis ：基于XML配置文件的方式和基于Java API 的方式
+</code></pre></li>
+</ol>
+<p>整体构建结构如下：</p>
+<p>每个基于 MyBatis 的应用都是以一个 SqlSessionFactory 的实例为中心，SqlSessionFactoryBuilder 从 XML 配置文件或一个预先定制的 Configuration 的实例构建出 SqlSessionFactory 的实例。<br>SqlSessionFactory 创建 SqlSession 实例，SqlSession 完全包含面向数据库执行 SQL 命令所需的所有方法。</p>
+<p>相关源码简单分析：<br>Configuration 配置类，与之相对应的是 API 的配置方式。主要构件 MyBatis 中的各种配置属性，具体的可以在官网文档中找到相似的属性定义。</p>
+<p>另一种是通过 XML 格式配置：通过 SqlSessionFactoryBuilder 类在解析成 Configuration 类。构建时序图如下：</p>
+<p>具体的 parse() 方法获取到 configuration 节点，在分类解析不同的节点属性，如下：</p>
+<p>得到 Configuration 配置类之后，便可以创建 DefaultSqlSessionFactory 对象，DefaultSqlSessionFactory 提供了openSessionFromConnection 和 openSessionFromDataSource 两种创建 SqlSession 的方式，区别在于构建 ManagedTransaction 的方式不同，本质都是一样的，取得数据库的连接。SqlSession 创建好之后，便可以通过 Executor 执行具体的 SQL 语句了，执行流程如下：</p>
+<p>先了解一下 Executor 接口和有哪些实现类。</p>
+<p>抽象类 BaseExecutor 主要定义了 Transaction 和 Configuration, 使用模板方法定义了主要的执行流程，在 SimpleExecutor 实现了具体的相关操作。</p>
+<p>例如 doQuery() 方法:</p>
+<p>再调用私有方法 prepareStatement() 使用 BaseStatementHandler 抽象类处理 statementLog，并且设置事务中设置的超时时间。</p>
+<p>BaseStatementHandler 的处理过程：这里返回的 Statement 是 java.sql 包下面的接口，实际上调用的是 Connection 接口的实现类中的 createStatement() 方法，具体的 JDBC 协议实现类中返回的 Statement (例如：JDBCStatement) 会实现 java.sql 包下的 Statement 接口。</p>
+<p>得到 Statement 之后， 回到 doQuery() 发方法 执行 SimpleStatementHandler 的query(stmt, resultHandler) 方法：</p>
+<p>再 statement.execute(sql) 会调用具体实现类的 execute 方法，例如 JDBCStatement 的 execute 方法会再调用私有方法 fetchResult() 方法：</p>
+<p>再拿到 ResultSet 后，使用 DefaultResultSetHandler 对其进行处理：</p>
+<p>到此，便走完了一个创建 Session ，执行 Sql，处理结果的流程，整体流程图(点击查看大图)：</p>
+<p>用到设计模式：<br>工厂方法模式： 满足了OCP（开闭原则，对扩展开放，对修改关闭）原则， 对构造过程进行选择。例如：</p>
+<p>模版方法模式：处理某个流程的代码已经都具备，但是其中某个节点的代码暂时不 能确定。因此采用工厂方法模式将这个节点的代码实现转移给子类完成 即：处理步骤父类中定义好，具体实现延迟到子类中定义。例如：</p>
+<p>最后，MyBatis构建在 JDBC 协议之上，简化了JDBC 代码和手动设置参数以及获取结果集的处理，支持定制化SQL，但具体的 SQL 执行，还是调用的的是 JDBC 的实现完成的。</p>
+<p>参考网址：</p>
+<ol>
+<li><a href="https://github.com/mybatis/mybatis-3" target="_blank" rel="noopener">MyBatis 官网源码</a></li>
+<li>(MyBatis官网文档)[<a href="http://www.mybatis.org/mybatis-3/zh/index.html]" target="_blank" rel="noopener">http://www.mybatis.org/mybatis-3/zh/index.html]</a></li>
+<li>(MyBatis-Spring官网文档)[<a href="http://www.mybatis.org/spring/zh/index.html]" target="_blank" rel="noopener">http://www.mybatis.org/spring/zh/index.html]</a> </li>
+<li>(深入理解MyBatis Blog)[<a href="https://blog.csdn.net/luanlouis/article/details/40422941]" target="_blank" rel="noopener">https://blog.csdn.net/luanlouis/article/details/40422941]</a></li>
+</ol>
+
+    
+    </div>
+    
+    
+    
+        <div class="article-comment" id='article-comment'>
+            
+
+<h1>Comment</h1>
+
+  
+  
+    <div id='valine'></div>
+  
+
+
+        </div>
+        
+</article>
+  </div>
+
+  
+
+<footer id='footer'>
+    <div class='footer-copyright'>
+        <div>
+            <p> Copyright by <a href="">zhouzg </a> @ 2018</p>
+            <p>Designed by: <i class="fas fa-paint-brush"></i> <a href="https://moober.cn">Moober</a> and <i class="fas fa-graduation-cap"></i> <a href="https://qutang.github.io">Qu Tang</a> &bull; Theme: <a href="">Cutie 2.0.6-beta-Taurus</a> &bull; Powered by <a href="http://hexo.io">Hexo.</a></p>
+        </div>
+    </div>
+    
+    <div class='footer-social'>
+        
+    </div>
+</footer>
+
+  <br>
+
+  <div id="footer-nav">
+		
+
+
+
+<nav id="nav">
+	
+	
+	
+	<div class='nav-item' id='nav-item-toc'>
+		
+
+
+
+
+<div class="toc-button" onclick='toggleTOC(event);' ontouchstart='toggleTOC(event);'>
+    <img src="/images/icons/blue-line/toc.svg" alt="">
+</div>
+
+	</div>
+	
+	<div class='nav-item' id='nav-item-archive'>
+		
+				<div class='nav-icon'>
+				
+			<a href="/archives/" title='Archives'>
+			<img src="/images/icons/blue-line/archive.svg" alt="">
+			</a>
+		</div>
+	</div>
+	<div class='nav-item' id='nav-item-search'>
+		
+		<div class='nav-icon'>
+		
+			<a href="/search/" title='Search'>
+			<img src="/images/icons/blue-line/search.svg" alt="">
+			</a>
+		</div>
+	</div>
+	<div class="nav-item" id='nav-item-more'>
+		<div class="nav-icon">
+				<a href='#' onclick='onClickMenuIcon(event);' ontouchstart='onClickMenuIcon(event);'>
+				<img src="/images/icons/blue-line/menu.svg" alt="">
+				</a>
+		</div>
+		<div class="nav-more-menu">
+		
+		
+	</div>
+	</div>
+</nav>
+
+	</div>
+
+  
+
+
+
+    
+    
+    
+    
+<script>
+    new Valine({
+        el: '#valine',
+        notify:false, 
+        verify:false,
+        appId: 'xgG8YQ2Eh5owLBlkKWE537Jh-gzGzoHsz',
+        appKey: 'GLq4HtUCMycBhNOItpgBd0sg',
+        placeholder: '_(:з」∠)_一本正经的胡说八道',
+        path:window.location.pathname, 
+        avatar:'retro',
+        lang: 'en'
+    });
+</script>
+
+
+
+
+
+
+
+
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script src="/js/lightgallery.min.js"></script>
+<script src="/js/lg-zoom.min.js"></script>
+<script type='text/javascript'>
+    $(document).ready(function() {
+        $("#lightgallery").lightGallery(); 
+        $(".article-content img").each(function(){
+            console.log($(this).attr('src'))
+            $(this).attr('data-src', $(this).attr('src')).lightGallery({
+                selector: 'this'
+            })
+        });
+    });
+</script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+  var userip;
+</script>
+<script type="text/javascript" src="https://l2.io/ip.js?var=userip"></script>
+
+
+<script src="/js/post.js"></script>
+
+<script data-no-instant type='text/javascript'>
+changeLayoutOnTouchScreen();
+
+
+var post = new Post('xgG8YQ2Eh5owLBlkKWE537Jh-gzGzoHsz', 'GLq4HtUCMycBhNOItpgBd0sg');
+        post.getCommentCount(window.location.pathname, function(count){
+            $('#article-comment-count').text(count);
+        });
+        post.addVisitRecord(window.location.pathname, userip);
+        post.getVisitCount(window.location.pathname, function(count){
+            $('#article-visit-count').text(count);
+        });
+post.updatePostVersion(window.location.pathname);
+
+
+</script>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
