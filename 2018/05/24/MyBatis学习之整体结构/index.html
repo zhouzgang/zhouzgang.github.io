@@ -344,7 +344,7 @@ d. 事务管理机制
 <p>另一种是通过 XML 格式配置：通过 SqlSessionFactoryBuilder 类在解析成 Configuration 类。构建时序图如下：<br><img src="/images/mybatis0005.JPG" alt="mybatis0005.JPG"></p>
 <p>具体的 parse() 方法获取到 configuration 节点，在分类解析不同的节点属性，如下：<br><img src="/images/mybatis0006.JPG" alt="mybatis0006.JPG"></p>
 <p>得到 Configuration 配置类之后，便可以创建 DefaultSqlSessionFactory 对象，DefaultSqlSessionFactory 提供了openSessionFromConnection 和 openSessionFromDataSource 两种创建 SqlSession 的方式，区别在于构建 ManagedTransaction 的方式不同，本质都是一样的，取得数据库的连接。SqlSession 创建好之后，便可以通过 Executor 执行具体的 SQL 语句了，执行流程如下：<br><img src="/images/mybatis0007.JPG" alt="mybatis0007.JPG"></p>
-<p>先了解一下 Executor 接口和有哪些实现类。<br><img src="/images/mybatis0008.JPG" alt="mybatis0008.JPG"></p>
+<p>先了解一下 Executor 接口和有哪些实现类。<br><img src="/images/mybatis0008.JPG" alt="mybatis0018.JPG"></p>
 <p>抽象类 BaseExecutor 主要定义了 Transaction 和 Configuration, 使用模板方法定义了主要的执行流程，在 SimpleExecutor 实现了具体的相关操作。<br><img src="/images/mybatis0009.JPG" alt="mybatis0009.JPG"></p>
 <p>例如 doQuery() 方法:<br><img src="/images/mybatis0010.JPG" alt="mybatis0010.JPG"></p>
 <p>再调用私有方法 prepareStatement() 使用 BaseStatementHandler 抽象类处理 statementLog，并且设置事务中设置的超时时间。<br><img src="/images/mybatis0011.JPG" alt="mybatis0011.JPG"></p>
@@ -354,7 +354,7 @@ d. 事务管理机制
 <p>再拿到 ResultSet 后，使用 DefaultResultSetHandler 对其进行处理：<br><img src="/images/mybatis0015.JPG" alt="mybatis0015.JPG"></p>
 <p>到此，便走完了一个创建 Session ，执行 Sql，处理结果的流程，整体流程图(点击查看大图)：<br><img src="/images/mybatis0016.JPG" alt="mybatis0016.JPG"></p>
 <p>用到设计模式：<br>工厂方法模式： 满足了OCP（开闭原则，对扩展开放，对修改关闭）原则， 对构造过程进行选择。例如：<br><img src="/images/mybatis0017.JPG" alt="mybatis0017.JPG"></p>
-<p>模版方法模式：处理某个流程的代码已经都具备，但是其中某个节点的代码暂时不 能确定。因此采用工厂方法模式将这个节点的代码实现转移给子类完成 即：处理步骤父类中定义好，具体实现延迟到子类中定义。例如：<br><img src="/images/mybatis0008.JPG" alt="mybatis0008.JPG"></p>
+<p>模版方法模式：处理某个流程的代码已经都具备，但是其中某个节点的代码暂时不 能确定。因此采用工厂方法模式将这个节点的代码实现转移给子类完成 即：处理步骤父类中定义好，具体实现延迟到子类中定义。例如：<br><img src="/images/mybatis0008.JPG" alt="mybatis0018.JPG"></p>
 <p>最后，MyBatis构建在 JDBC 协议之上，简化了JDBC 代码和手动设置参数以及获取结果集的处理，支持定制化SQL，但具体的 SQL 执行，还是调用的的是 JDBC 的实现完成的。</p>
 <p>参考网址：</p>
 <ol>
